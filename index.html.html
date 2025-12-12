@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Responsive ขั้นสูง</title>
+  <meta name="description" content="Portfolio แบบโทนสีดำ-น้ำเงิน ปรับขนาดอัตโนมัติสำหรับมือถือ แท็บเล็ต และเดสก์ท็อป" />
+  <style>
+    :root{
+      --bg-top:#001426;
+      --bg-bottom:#00264d;
+      --card:#003366;
+      --accent:#1e90ff;
+      --muted:rgba(255,255,255,0.78);
+      --radius:14px;
+      --glass: rgba(255,255,255,0.03);
+      --max-width:1200px;
+      --gap:1.25rem;
+    }
+
+    /* Basic reset */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg-top),var(--bg-bottom));
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:40px;
+    }
+
+    /* Container */
+    .container{width:90%;max-width:var(--max-width);margin:0 auto}
+
+    /* Header / Nav */
+    header{
+      padding:28px 0 10px;
+      position:sticky;top:0;z-index:40;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.08));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand h1{font-size:clamp(1.05rem,1.6vw,1.45rem);margin:0}
+    .brand .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#004b99);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    nav ul{display:flex;gap:18px;align-items:center;list-style:none;margin:0;padding:0}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:0.95rem}
+    nav a:hover{color:#fff}
+
+    /* Mobile menu */
+    .menu-btn{display:none;border:0;background:transparent;color:var(--muted);font-size:1.2rem}
+    .mobile-menu{display:none}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;padding:44px 0}
+    .hero h2{font-size:clamp(1.9rem,4.4vw,2.6rem);margin:0 0 12px}
+    .hero p{color:var(--muted);font-size:clamp(1rem,1.6vw,1.125rem);margin:0 0 18px}
+    .cta{display:inline-block;padding:10px 16px;border-radius:10px;background:var(--accent);color:#001426;font-weight:700;text-decoration:none}
+
+    /* Cards / Projects */
+    .section{padding:36px 0}
+    .section h3{margin:0 0 14px;font-size:1.25rem;border-left:6px solid var(--accent);padding-left:12px}
+
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .card{
+      background: linear-gradient(180deg,var(--card),#004080);
+      border-radius:var(--radius);
+      padding:16px;
+      transition:transform .28s ease, box-shadow .28s ease;
+      box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      display:flex;flex-direction:column;gap:12px;min-height:160px;overflow:hidden
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,0.5)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .card h4{margin:0;font-size:1.05rem}
+    .card p{margin:0;color:var(--muted);font-size:0.95rem}
+    .card .tags{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.06);padding:6px 8px;border-radius:8px;font-size:.78rem}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+    .contact-card{background:var(--glass);border-radius:12px;padding:18px}
+
+    /* Footer */
+    footer{margin-top:36px;padding:28px 0;color:var(--muted);text-align:center}
+
+    /* Responsive rules - progressive enhancement */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr 320px}
+      .projects{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      .menu-btn{display:inline-block}
+      nav ul{display:none}
+      .mobile-menu{display:block}
+      .hero{grid-template-columns:1fr;gap:20px;padding:28px 0}
+      .brand h1{font-size:1rem}
+      .projects{grid-template-columns:1fr}
+      .card img{height:200px}
+      .contact-card{padding:14px}
+    }
+
+    /* Accessibility & motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      .card, .brand, .hero *{transition:none;animation:none}
+    }
+
+    /* Utility */
+    .muted{color:var(--muted)}
+    .flex{display:flex;gap:12px;align-items:center}
+
+    /* Small helpers for layout on very large screens */
+    @media(min-width:1400px){
+      :root{--max-width:1400px}
+      .hero{gap:56px}
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <h1 class="main-title" style="display:flex;align-items:center;gap:12px;">
+  <img src="S__23527431.jpg"
+       alt="Profile Photo"
+       style="width:60px;height:60px;border-radius:50%;object-fit:cover;" />
+  
+</h1>
+       
+        <h1>Chutimon Portfolio</h1>
+      </div>
+
+      <nav aria-label="หลักนำทาง">
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+        <ul class="desktop-menu">
+          <li><a href="#about">เกี่ยวกับ</a></li>
+          <li><a href="#projects">ผลงาน</a></li>
+          <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+
+        <div id="mobileMenu" class="mobile-menu" hidden>
+          <ul style="list-style:none;padding:12px 0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="#about">เกี่ยวกับ</a></li>
+            <li><a href="#projects">ผลงาน</a></li>
+            <li><a href="#contact">ติดต่อ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h2> Chutimon</h2>
+        <p>นักพัฒนาเว็บและนักออกแบบ UI/UX </p>
+        <div class="flex">
+          <a class="cta" href="#projects">ดูผลงาน</a>
+          <a class="muted" href="#contact" style="align-self:center;text-decoration:underline">ติดต่อ</a>
+        </div>
+      </div>
+
+      <aside aria-hidden="true" style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px">
+        <h4 style="margin:0 0 8px">ทักษะสำคัญ</h4>
+        <p class="muted" style="margin:0 0 10px">HTML • CSS • JavaScript • React • Node.js • Figma</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div class="tag">Responsive</div>
+          <div class="tag">Accessibility</div>
+          <div class="tag">Performance</div>
+          <div class="tag">Design Systems</div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="section">
+      <h3>เกี่ยวกับฉัน</h3>
+      <p class="muted">นักศึกษาประกาศนียบัตรวิชาชีพชั้นสูง สาขาเทคโนโลยีสารสนเทศ </p>
+    </section>
+    <section id="education" class="section">
+      <h3>ประวัติการศึกษา</h3>
+      <ul class="muted" style="line-height:1.8">
+    <h1 class="main-title" style="display:flex;align-items:center;gap:12px;">
+  <img src="images.jpg"
+       alt="Profile Photo"
+       style="width:60px;height:60px;border-radius:50%;object-fit:cover;" />
+  
+    </h1>    
+    
+      <li><strong>ประกาศนียบัตรวิชาชีพชั้นสูง :</strong> เทคนิคนครนายก — สาขาเทคโนโลยีสารสนเทศ </li>
+      <h1 class="main-title" style="display:flex;align-items:center;gap:12px;">
+  <img src="banna.jpg"
+       alt="Profile Photo"
+       style="width:60px;height:60px;border-radius:50%;object-fit:cover;" />
+  
+    </h1>
+      <li><strong>มัธยมศึกษาตอนปลาย :</strong> โรงเียนบ้านนา "นายกพิทยากร" — แผน วิทยาศาสตร์-คณิตศาสตร์ </li>
+      </ul>
+    </section>
+    <section id="projects" class="section">
+      <h3>ผลงาน</h3>
+      <div class="projects" id="projectsGrid">
+
+        <!-- Project card 1 -->
+        <article class="card" tabindex="0" aria-labelledby="p1">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop&crop=entropy" alt="ตัวอย่างโปรเจกต์ 1" loading="lazy"/>
+          <h4 id="p1">Project 1 — เว็บไซต์ร้านค้า</h4>
+          <p class="muted">ระบบอีคอมเมิร์ซขนาดกลางที่มีการชำระเงินและการจัดการคำสั่งซื้อ</p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Stripe</span>
+            <span class="tag">Responsive</span>
+          </div>
+        </article>
+
+        <!-- Project card 2 -->
+        <article class="card" tabindex="0" aria-labelledby="p2">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop&crop=entropy" alt="ตัวอย่างโปรเจกต์ 2" loading="lazy"/>
+          <h4 id="p2">Project 2 — Dashboard</h4>
+          <p class="muted">แดชบอร์ดสำหรับวิเคราะห์ข้อมูลธุรกิจแบบเรียลไทม์</p>
+          <div class="tags">
+            <span class="tag">D3</span>
+            <span class="tag">WebSocket</span>
+          </div>
+        </article>
+
+        <!-- Project card 3 -->
+        <article class="card" tabindex="0" aria-labelledby="p3">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&crop=entropy" alt="ตัวอย่างโปรเจกต์ 3" loading="lazy"/>
+          <h4 id="p3">Project 3 — Blog / CMS</h4>
+          <p class="muted">ระบบจัดการเนื้อหาและบล็อก สำหรับนักเขียนและสำนักพิมพ์</p>
+          <div class="tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Headless CMS</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h3>ติดต่อ</h3>
+      <div class="contact-grid">
+        <div>
+          <p class="muted">ถ้าต้องการงาน โปรเจกต์ หรือคุยงานออกแบบ ติดต่อได้ทางฟอร์มนี้</p>
+
+          <form class="contact-card" id="contactForm" aria-label="ฟอร์มติดต่อ">
+            <label for="name">ชื่อ</label>
+            <input id="name" name="name" type="text" placeholder="ชื่อของคุณ" required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin:6px 0 12px" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@mail.com" required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin:6px 0 12px" />
+
+            <label for="message">ข้อความ</label>
+            <textarea id="message" name="message" rows="5" placeholder="รายละเอียดงาน/ข้อความ" required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin:6px 0 12px"></textarea>
+
+            <div style="display:flex;gap:10px;align-items:center">
+              <button type="submit" style="background:var(--accent);border:0;padding:10px 14px;border-radius:10px;font-weight:700;color:#001426">ส่งข้อความ</button>
+              <span class="muted">หรืออีเมล: example@mail.com</span>
+            </div>
+          </form>
+        </div>
+
+        <aside class="contact-card" aria-hidden="false">
+          <h4 style="margin-top:0">ข้อมูลเพิ่มเติม</h4>
+          <p class="muted">Chutimon Charoenthai</p>
+          <p class="muted">ที่ตั้ง: 56/2 หมู่ 5 ต.อาษา อ.บ้านนา จ.นครนายก </p>
+          <p class="muted">เบอร์โทร: 098-6472324 </p>
+          <p class="muted">
+           Facebook : 
+           <a href="https://www.facebook.com/share/1A3iixHQqr/?mibextid=wwXIfr" 
+              target="_blank" 
+              style="color:#4da3ff;text-decoration:underline;">
+             Chutimon Charoenthai
+          </a>
+          </p>
+           <p class="muted">
+            Instagram :
+           <a href="https://www.instagram.com/chxtxmxn.nn?igsh=MWt1N3V0NWdkdnRvcA%3D%3D&utm_source=qr"
+              target="_blank"
+              style="color:#ff88c8;text-decoration:underline;">
+            @chxtxmxn.nn
+          </a>
+          </p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="tag" href="#">LinkedIn</a>
+            <a class="tag" href="#">GitHub</a>
+            <a class="tag" href="#">Behance</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container"> Chutimon </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle (accessible)
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn && menuBtn.addEventListener('click', ()=>{
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      if(expanded){
+        mobileMenu.hidden = true;
+      } else {
+        mobileMenu.hidden = false;
+      }
+    });
+
+    // Lightweight form handling (demo)
+    const contactForm = document.getElementById('contactForm');
+    contactForm && contactForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // Simple UI feedback — in real site, send via fetch to API
+      alert('ขอบคุณ! ข้อความของคุณถูกส่งแล้ว (demo)');
+      contactForm.reset();
+    });
+
+    // Keyboard accessible cards: enter opens a simple detail overlay (progressive enhancement)
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){
+          card.click();
+        }
+      });
+      card.addEventListener('click', ()=>{
+        // For demo, simply focus the card and flash
+        card.style.outline = '3px solid rgba(255,255,255,0.06)';
+        setTimeout(()=>card.style.outline = 'none',600);
+      });
+    });
+
+    // Performance note: images use loading=lazy; for production consider srcset and responsive images.
+  </script>
+  portfolio/
+   index.html
+</body>
+</html>
